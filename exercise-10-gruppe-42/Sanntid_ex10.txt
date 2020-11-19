@@ -1,0 +1,47 @@
+Sanntid - Exercise 10
+Group 42
+
+------- Part 1: Deadlock ------
+
+  1) 	Create a system with a deadlock:
+	two actions, a and b, both dependent on the other to complete: deadlock
+
+	The LTSA (Labelled Transition System Analyser) can detect a deadlock 
+
+  2)	Can you detect a deadlock from the FSP (Finite State Process) model: yes, if a and b 		are shared variables
+
+
+------- Part 2: Livelock ------
+
+  1)	Create a system with a livelock: 
+	a subset of states without an exit.
+	Does the LTSA detect this: no
+
+  2) 	Assuming the subset is not a livelock but normal behaviour. 
+	To get rid of the error, create a progress property that that only contains only those 		states that are part of the livelock  Such a progress property can be a liveness 		property that asserts that something positive will eventualy happen
+
+
+------- Part 3: Dining Philosophers ------
+ 
+  1)	A system with 3 philosophers and 3 forks.
+	Deadlock: all three philosophers pick up the fork on their left (or all on the the 		right), and wait for the fork on their right to become availible, which it never will.
+
+  2) 	Extending to handle N philosophers.
+	The LTSA crashed at six, but this probably had something to do with implementaion and  		not actual capasity.... 
+
+  3) 	Does making one of the philosophers pick up the forks in reverse order resolve the 		deadlock? Yes, example with 3 philosophers 
+
+		(A)             Philosopher (A) picks up fork on the left |1, philosopher    
+             |3     |1          (B) pick up fork on left |2, philosopher (C) atempts to pick 
+            (C)      (B)        up fork on the right |2 but it in unavailible. This allows (A)
+                 |2             pick up fork |3 and start eating. 
+
+ 	 
+
+  4) 	Consequences of 3) for fairness... 
+	Using scehuling one can make it som that all philosophers will get the chance of 	 eating, for example allowing everyone to eat once before allowing anyone to eat twice. 		However, the person who picks up the fork in the reverse order will always eat last, 		which does not seem fair.
+
+
+	A fair solution without deadlocks: the solution proposed by Dijkstra of resource 		hiearchy. Assigning a partial order to the forks and establishing the convention that 		all forks will be requested in order, and that no two forks unrelated by order 		will ever be used by a philosopher at the same time. 
+	Alternativly introducing atomic locks. 
+  
